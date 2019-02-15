@@ -14,7 +14,7 @@
  */
 class ezRbacHook
 {
-    private
+    protected
         /**
          * @var CI_Controller CI instance reference holder
          */
@@ -99,7 +99,7 @@ class ezRbacHook
      *
      * @return bool
      */
-    private function isPublicRequest()
+    protected function isPublicRequest()
     {
         $this->_controller_name = $this->CI->router->fetch_class();
         $this->_controller      = $this->CI->router->fetch_directory() . $this->_controller_name;
@@ -116,7 +116,7 @@ class ezRbacHook
      *
      * @return bool
      */
-    private function manage_access()
+    protected function manage_access()
     {
         $isRbacUrl = $this->CI->ezuri->isRbacUrl();
         switch ($isRbacUrl) {
@@ -211,7 +211,7 @@ class ezRbacHook
     /**
      * This method trigger when a restricted resource accessed
      */
-    private function restrict_access()
+    protected function restrict_access()
     {
         if ($this->_isAjaxCall) { //do not redirect return json object if it is a ajax request
             $msg = json_encode(array('success' => FALSE, 'msg' => $this->CI->config->item('ajax_no_permission_msg', 'ez_rbac')));

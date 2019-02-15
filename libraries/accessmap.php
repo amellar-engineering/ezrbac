@@ -160,10 +160,12 @@ class AccessMap{
         $permission = $this->CI->user_access_map->get_permission($access_role, $controller);
 
         if (is_null($permission)) {
-            return $this->_default_access;
+            // return $this->_default_access;
+            return gmp_strval($this->_default_access);
         }
 
-        return (int)$permission;
+        // return (int)$permission;
+        return $permission;
     }
 
     /**
@@ -211,8 +213,11 @@ class AccessMap{
             return $this->_access_details[$action] = FALSE;
         }
 
-        return $this->_access_details[$action] = (boolean)($this->_access_val & pow(2, $index));
+        $pow = gmp_pow("2", $index);
+        $av = gmp_init($this->_access_val);
 
+        // return $this->_access_details[$action] = (boolean)($this->_access_val & pow(2, $index));
+        return $this->_access_details[$action] = gmp_strval(gmp_and($av, $pow)) !== "0";
     }
 
     /**
